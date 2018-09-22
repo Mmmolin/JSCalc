@@ -22,13 +22,10 @@ function operator(){
     let operators = document.querySelectorAll('.operator');
     operators.forEach(function(operator) {
         operator.addEventListener('click', function() {
-            if(operator.value == "+") {
-                addition();
-            }
-            else if(operator.value == "-") {
-                subtraction();
-            } else {
+            if(operator.textContent == "=") {
                 equals();
+            } else {
+                pushToResult(operator.value);
             }
         });
     });
@@ -41,54 +38,82 @@ function clear() {
     });
 };
 
+function clearEntry() {
+
+};
+
 /* Not EventListeners */
 
 function inputDisplay(number) {
-    let display = document.querySelector('#display');
-    if(display.textContent == "+" || display.textContent == "-"){
-        display.textContent = "";
+    if(getDisplayText() == "+" || getDisplayText() == "-"
+    || getDisplayText() == "/" || getDisplayText() == "×"){
+        setDisplayText("");
     };
     display.textContent += number;
 };
 
-function addition() {
+function getDisplayText(){
     let display = document.querySelector('#display');
-    result.push(Number(display.textContent));
-    result.push("+");
-    display.textContent = "+"; 
-};
+    return display.textContent;
+}
 
-function subtraction() {
-   let display = document.querySelector('#display');
-   result.push(Number(display.textContent));
-   result.push("-");
-   display.textContent = "-";
+function setDisplayText(value) {
+    let display = document.querySelector('#display');
+    display.textContent = value;
+}
+
+function pushToResult(operator) {
+    result.push(Number(getDisplayText()));
+    result.push(operator);
+    setDisplayText(operator);
 }
 
 function equals() {
     if(result[result.length - 1] != "+" || 
     result[result.length -1] != "-") {
-        let display = document.querySelector('#display');
-        result.push(Number(display.textContent));
+        result.push(Number(getDisplayText()));
     };
     let sum = 0;
-    for(i = 0; i < result.length; i++) {
-        if(i == 0) {
+    for(i = 0; i < result.length; i++) {        
+        if(i != 0) {
+            switch(result[i]) {
+                case "+":
+                    sum = addition(sum, result[i + 1]);
+                    break;
+                case "-":
+                    sum = subtraction(sum, result[i + 1]);
+                    break;
+                case "/":
+                    sum = divide(sum, result[i + 1]);
+                    break;
+                case "×":
+                    sum = multiply(sum, result[i + 1]);
+                    break;
+            }
+        } else {
             sum = result[i];
         }
-        else if(result[i] == "+") {
-            sum += result[i + 1];
-        }
-        else if(result[i] == "-") {
-            sum -= result[i + 1];
-        }
     }
-    let display = document.querySelector('#display');
-    display.textContent = sum;
+    setDisplayText(sum);
+};
+
+function addition(sum, number) {
+    return sum += number;
+};
+
+function subtraction(sum, number) {
+    return sum -= number;
+};
+
+function divide(sum, number) {
+    return sum / number;
+};
+
+function multiply(sum, number) {
+    return sum * number;
 };
 
 function clearAllContent() {
      result = [];
-     let display = document.querySelector('#display');
-     display.textContent = "";
+     setDisplayText("");
 }
