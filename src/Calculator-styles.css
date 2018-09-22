@@ -1,21 +1,27 @@
 * {
     margin: 0;
     padding: 0;
-    border: 0.01em solid red;
+    /* border: 0.01em solid red; */
 }
 
 header h1 {
     text-align: center;
+    font-size: 3em;
+    margin-bottom: 0.5em;
 }
 
 #calculator {
     margin-left: auto;
     margin-right: auto;
-    width: 30em;
+    width: 20em;
+    background-color: gainsboro;
+    box-shadow: 0 0 0.7em black;
 }
 #display {
     flex: 1;
     text-align: right;
+    border: 0.02em solid black;
+    font-size: 3em;
 }
 
 .row {
@@ -25,4 +31,5 @@ header h1 {
 
 button {
     flex: 1;
+    margin: 0.05em;
 }

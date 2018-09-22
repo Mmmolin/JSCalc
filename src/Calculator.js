@@ -6,6 +6,7 @@ loadEventListeners();
 function loadEventListeners() {
     number();
     operator();
+    clear();
 };
 
 function number() {
@@ -30,6 +31,13 @@ function operator(){
                 equals();
             }
         });
+    });
+};
+
+function clear() {
+    let clear = document.querySelector('#clear');
+    clear.addEventListener('click', function() {
+        clearAllContent();
     });
 };
 
@@ -79,7 +87,8 @@ function equals() {
     display.textContent = sum;
 };
 
-
-function clear() {
-     
+function clearAllContent() {
+     result = [];
+     let display = document.querySelector('#display');
+     display.textContent = "";
 }
