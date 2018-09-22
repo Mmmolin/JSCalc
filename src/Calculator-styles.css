@@ -33,3 +33,7 @@ button {
     flex: 1;
     margin: 0.05em;
 }
+
+.number {
+    background-color: ghostwhite;
+}
